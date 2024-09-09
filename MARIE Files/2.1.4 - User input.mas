@@ -1,0 +1,28 @@
+﻿/Main Program
+	                       		Load StringIndex			/string storage address is loaded 
+                                Store Iteration				/the index is stored in Iteration 					
+                             	JnS UserInput				/Iteration is used as the argument in the subroutine							
+                                Halt
+
+/User input subroutine
+UserInput,						HEX 0
+Begin,                     		Input						/the user manually inputs each string character
+                                StoreI Iteration			/the character is stored at the string index
+                                Skipcond 400				/the subroutine ends when the AC has a value of 0
+                                Jump Increment				
+                                JumpI UserInput
+                               
+Increment,                  	Load Iteration				
+                                Add One						/the string index is added by 1
+                                Store Iteration				/the index of the next string character is stored
+                                Jump Begin
+/__________________________________________________________________________________________________________________
+/Variables
+Iteration,						DEC 0						
+
+/Constants,
+StringIndex, 					DEC 17						/the string addresses start at 20
+One, 							DEC 1
+
+/String storage location:
+String,							DEC 0

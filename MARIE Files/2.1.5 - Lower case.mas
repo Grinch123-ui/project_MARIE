@@ -1,0 +1,60 @@
+﻿/Main program
+		                        Load StringIndex			/StringIndex is used as an argument			
+                                Store Iteration				/for the string addresses in Iteration
+
+If,                             LoadI Iteration				/detection for capitals or lower case
+                                Subt ASCIIRange				/capitals will result in a negative value, non-capitals positive
+	                            Skipcond 800
+                                JnS LowerCapitals			/capitals will cause the code to jump to the subroutine
+								Skipcond 800         		/non-capitals will run enable this Skipcond and run the else statement                      
+                                Jump Loop
+                               
+Else,                           LoadI Iteration				/the non-capital is loaded and printed
+                                Output
+                               
+Loop,                           Load Iteration				
+                                Add One						/one is added to procced to the next string address
+                                Store Iteration				/new value is stored
+								LoadI Iteration				/string address is loaded to check for 0
+	                            Skipcond 400				/loop ends when the AC is 0
+		                        Jump If						/if statement is looped for the next character
+	                            Halt
+
+/Subroutine for capitals
+LowerCapitals,					HEX 0 				
+StartLower,						LoadI Iteration				/the string address is loaded into the AC
+                             	Add CapitaltoLower			/conversion from capital to lower case	
+								Output
+                                Load NegativePlaceholder	/this line is for enabling the 'Jump Loop' in the main program
+                                JumpI LowerCapitals
+
+/___________________________________________________________________________________________________________________________________
+/Variables 						
+Iteration,						DEC 0
+CapitaltoLower,					DEC 32						/capital and lower case letters have a difference of DEC 32 in ASCII
+
+/Constants
+StringIndex,					DEC 29						/the sample string is starts at address 29
+One, 							DEC 1
+ASCIIRange,						DEC 92						/capitals in ASCII range from 65 to 90
+NegativePlaceholder,			DEC -1						
+
+/Sample string (ASCII code is in decimals)
+String,							DEC	116				/string: thisISaMARIEtest
+								DEC 104
+                                DEC 105
+                                DEC 115
+                                DEC 73
+                                DEC 83
+                                DEC 97
+                                DEC 77
+                                DEC 65
+                                DEC 82
+                                DEC 73
+                                DEC 69
+                                DEC 116
+                                DEC 101
+                                DEC 115
+                                DEC 116
+								DEC 0				/end of string indicated by 0
+                             

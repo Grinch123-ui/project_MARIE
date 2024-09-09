@@ -1,0 +1,32 @@
+﻿/Main program
+Loop, 	                        LoadI CurrentCharacterAddress
+                                Output 
+                                Load CurrentCharacterAddress	
+                                Add One					 			/the current character address is increased by one
+                                Store CurrentCharacterAddress		/the updated address is stored to indicate the next string character
+                  				LoadI CurrentCharacterAddress		/the line attempts to set up the 0 for the Skipcond
+                                Skipcond 400						/stops the program when the AC value has a value of 0
+                                Jump Loop							/loop to print every character in the string
+                                Halt								
+/_____________________________________________________________________________________________________________________________________________
+/Constants
+CurrentCharacterAddress, 		HEX B								/refers to the address of the start of the string.
+One, 							DEC 1
+
+/Name as a string  
+NameString,		 				HEX 054								/start of string (String: Tan Jia Joon)	
+								HEX 061	
+            					HEX 06E
+            					HEX 020								/this character is a spacing between words
+            					HEX 04A				
+            					HEX 069
+                                HEX 061
+								HEX 020	
+                                HEX 04A				
+                                HEX 06F
+                                HEX 06F
+                                HEX 06E				
+								HEX 000								/end of string indicated by 0
+                                
+
+

@@ -1,0 +1,16 @@
+﻿/The name that will be printed is: Tan Jia Joon
+/UNICODE characters are used for encoding.
+
+Name, 		HEX 054				/Start of string, with the first word: Tan
+			HEX 061	
+            HEX 06E
+            HEX 020				/HEX 020 indicates a space between words.
+            HEX 04A				/Second word: Jia
+            HEX 069
+            HEX 061
+            HEX 020
+            HEX 04A				/Third word: Joon
+            HEX 06F
+            HEX 06F
+            HEX 06E				
+            HEX 000				/End of string indicated by 0.

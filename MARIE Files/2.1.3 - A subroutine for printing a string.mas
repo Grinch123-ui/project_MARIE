@@ -1,0 +1,42 @@
+﻿/Main Program
+           		            	Load StringIndex				 
+                                Store PrintString				/string address is stored
+Loop,                           JnS Print						/jumps to the subroutine with PrintString as the argument
+								LoadI PrintString				/this line attempts to set up the 0 for the Skipcond
+                                Skipcond 400
+                                Jump Loop						/code loops to print every string character
+                                Halt
+ 
+/Subroutine							
+PrintString,					HEX 0							/the current address of the string
+Print,							HEX 0 							/return address is stored here
+								LoadI PrintString				
+                                Output							/the string character is printed
+								Load PrintString						
+                                Add One							/one is added to the string address
+                                Store PrintString				/new address of the next string character is stored
+                                JumpI Print						/subroutine stops
+
+/_____________________________________________________________________________________________________________________________
+/Constants
+StringIndex,					HEX 11
+One,							DEC 1
+ 
+/Name as a String 
+NameString,      				HEX 054							/Start of string (String: Tan Jia Joon)	
+								HEX 061	
+            					HEX 06E
+            					HEX 020							/This character is a space
+            					HEX 04A				
+            					HEX 069
+                                HEX 061
+								HEX 020	
+                                HEX 04A				
+                                HEX 06F
+                                HEX 06F
+                                HEX 06E				
+                                HEX 000							/End of string
+
+		 					
+
+

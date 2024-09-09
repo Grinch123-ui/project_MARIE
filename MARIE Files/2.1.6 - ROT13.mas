@@ -1,0 +1,59 @@
+﻿/Main program
+					Load StringIndex
+                    Store Iteration					/the string address is used as the subroutine's argument
+Loop,               JnS ROT13
+					Load Iteration
+                    Add One							/one is added to Iteration to refer to the next character
+                    Store Iteration
+                    LoadI Iteration					/string address value is loaded to check for AC value
+                    Skipcond 400					/loop stops when AC value is 0
+                  	Jump Loop						
+                    Halt
+
+/ROT13 subroutine
+ROT13,				HEX 0
+Start,				LoadI Iteration
+                  	Add Thirteen					/ROT13 conversion occurs (add 13)
+                  	Store Placeholder				/the converted value is stored 
+                  	Subt ASCII_z					/checks if the alphabets loop over 
+                  	Skipcond 800					/positive values indicate that the alphabet set is looped over  
+                  	Jump ConvertDone				
+                    
+                	Add ASCII_Mod					/96 is added to provide the correct letter for the looped alphabets
+                	Output							/converted value is printed
+                	Jump End						/jumps to the return address
+                
+ConvertDone,    	Load Placeholder				/for negative values, no change is required
+					Output							/the correct value within placeholder is printed
+                    
+End,            	JumpI ROT13
+              
+/Variables
+Iteration,			DEC 0
+Placeholder,		DEC 0
+
+/Constants
+StringIndex,		DEC 30
+One,				DEC 1
+Thirteen,			DEC 13
+ASCII_z,			DEC 122	
+ASCII_Mod,			DEC 96
+
+/Sample string in lower case (ASCII code in decimals)
+String,				DEC 109							/start of string: mynameisjiajoon
+                    DEC 121
+                    DEC 110
+                    DEC 97
+                    DEC 109
+                    DEC 101
+                    DEC 105
+                    DEC 115
+                    DEC 106
+                    DEC 105
+                    DEC 97
+                    DEC 106
+                    DEC 111
+                    DEC 111
+                    DEC 110
+                    DEC 0							/end of string indicated by 0
+            

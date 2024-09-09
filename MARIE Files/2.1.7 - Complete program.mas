@@ -1,0 +1,84 @@
+﻿/Note: Please type in 0 in the input to signify the end of your string.
+
+/Main program
+Initialize,		                Load StringIndex				/StringIndex is used as an argument			
+                                Store Iteration					/for the string addresses in Iteration
+						
+Program_Start,                  JnS UserInput
+ 	                            Load StringIndex				/StringIndex is called again to refer to the start address of the string
+								Store Iteration					/Iteration is also reset
+                                
+If,                             LoadI Iteration	
+								Skipcond 800					/this skipcond restarts the program for another string to be inputted						
+                                Jump Program_Start              /occurs when the address reaches the value 0 at the end of the string
+                                Subt ASCIIRange					/capitals will result in a negative value, non-capitals positive
+	                            
+                                Skipcond 800
+                                JnS LowerCapitals				/capitals will cause the code to jump to the subroutine
+								Skipcond 800         			/non-capitals will run enable this Skipcond and run the else statement                      
+                                Jump Loop
+                               
+Else,							JnS ROT13                		/the LowerCapitals subroutine is bypassed is a lower case is inputted           
+                                  
+Loop,                          	Load Iteration
+                                Add One
+                                Store Iteration    
+		                        Jump If							
+
+/________________________________________________________________________________________________________________________
+/User input subroutine
+UserInput,						HEX 0
+Begin,                      	Input							/the user manually inputs each string character
+                                StoreI Iteration				/the character is stored at the string index
+                                Skipcond 400					/the subroutine ends when the AC has a value of 0
+                                Jump Increment				
+                                JumpI UserInput
+                               
+Increment,                  	Load Iteration				
+                                Add One							/the string index is added by 1
+                                Store Iteration					/the index of the next string character is stored
+                                Jump Begin
+                             
+/Subroutine for capitals
+LowerCapitals,					HEX 0 				
+StartLower,						LoadI Iteration					/the string address is loaded into the AC
+                             	Add CapitaltoLower				/conversion from capital to lower case	
+                                StoreI Iteration
+                                JnS ROT13
+                                Load NegativePlaceholder		/this line is for enabling the 'Jump Loop' in the main program
+                                JumpI LowerCapitals
+              
+/ROT13 subroutine
+ROT13,							HEX 0
+Start,							LoadI Iteration
+                  				Add Thirteen					/ROT13 conversion occurs (add 13)
+                  				Store Placeholder				/the converted value is stored 
+                  				Subt ASCII_z					/checks if the alphabets loop over 
+                  				Skipcond 800					/positive values indicate that the alphabet set is looped over  
+                  				Jump ConvertDone				
+                    
+                				Add ASCII_Mod					/96 is added to provide the correct letter for the looped alphabets
+                				Output							/converted value is printed
+                				Jump End						/jumps to the return address
+                
+ConvertDone,    				Load Placeholder				/for negative values, no change is required
+								Output							/the correct value within placeholder is printed               
+End,            				JumpI ROT13
+
+/__________________________________________________________________________________________________________________________
+/Variables 						
+Placeholder,					DEC 0
+Iteration,						DEC 0
+			
+/Constants
+StringIndex,					DEC 58
+One, 							DEC 1
+ASCIIRange,						DEC 92						
+NegativePlaceholder,			DEC -1
+CapitaltoLower,					DEC 32
+Thirteen,						DEC 13
+ASCII_z,						DEC 122	
+ASCII_Mod,						DEC 96
+
+/String storage location:
+StringLocation,					DEC 0
